@@ -17,7 +17,7 @@ typedef struct player{
 
 typedef struct item{
     char *name;
-    char icon;
+    char *icon;
     int value;
     double weight;
 
