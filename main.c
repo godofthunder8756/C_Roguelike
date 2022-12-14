@@ -35,8 +35,10 @@ int main(void) {
 
     // Game loop
     while (1) {
+
         char ch;
 
+        // Movment
         if (kbhit()) {
             world[playerPosY][playerPosX] = '.'; //restore last cell
             ch = getch();
@@ -76,7 +78,6 @@ int main(void) {
             }               
 
         }
-
 
         // Check for end conditions and break out of the game loop if necessary
         if(user.health == 0)
