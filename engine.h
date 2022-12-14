@@ -38,6 +38,18 @@ void turn(){
     turnCount++;
 }
 
+void clearscreen()
+{
+    HANDLE hOut;
+    COORD Position;
+
+    hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    Position.X = 0;
+    Position.Y = 0;
+    SetConsoleCursorPosition(hOut, Position);
+}
+
 void drawMap(int playerX, int playerY){
     // system("cls");
     clearscreen();
@@ -61,18 +73,6 @@ void drawMap(int playerX, int playerY){
         }
         printf("\n\033[40m");
     }
-}
-
-void clearscreen()
-{
-    HANDLE hOut;
-    COORD Position;
-
-    hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-
-    Position.X = 0;
-    Position.Y = 0;
-    SetConsoleCursorPosition(hOut, Position);
 }
 
 void initColor(){
