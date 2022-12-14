@@ -3,12 +3,15 @@
 #include <conio.h>
 #include <string.h>
 #include <Windows.h>
+#include "enemy.h"
 
 #define HEIGHT 14
 #define WIDTH 20
 
 char world[HEIGHT][WIDTH];
 int collisionMap[HEIGHT][WIDTH];
+enemy* enemyList[20];
+int enemyCount = 0;
 
 typedef struct player{
     int health;
@@ -54,7 +57,8 @@ void clearscreen()
 void drawMap(int playerX, int playerY){
     clearscreen();
     printf("\033[93m                Valdmir!\n");
-    printf("\033[96mItems: ");
+    printf("\033[96mItems: \n");
+    printf("Enemy Count: %d\n", enemyCount); //Debug
     //show inventory items
     for(int i=0; i<playerInventory.size; i++){
         printf((char*)(playerInventory.contents->icon));
@@ -70,9 +74,14 @@ void drawMap(int playerX, int playerY){
                 printf("\033[100m  \033[40m", world[x][y]);
             if(world[x][y] == '.')                          // Walkable Floor
                 printf("\033[47m  ", world[x][y]);
+            if(world[x][y] == 'G')
+                printf("\033[92mG ", world[x][y]);
         }
         printf("\n\033[40m");
     }
+    printf("Enemy List: \n");
+    for(int i=0; i < enemyCount; i++)
+        printf("%s\n", enemyList[i]->name);
 }
 
 void initColor(){
@@ -103,13 +112,32 @@ void generateCollisionMap(FILE* fptr){
                 collisionMap[x][y] = 1;
             if(c == '0')
                 collisionMap[x][y] = 0;
+            if(c == 'G')
+                collisionMap[x][y] = 1;
         }
     }
     generateCollisionFile(); //debug
 }
 
-void initWorld(FILE* fptr){
+void initEnemy(char type, int x, int y){
+    if(type == 'G'){
+        enemy* Goblin;
+        Goblin = (enemy*)malloc(sizeof(enemy));
+        Goblin->x = x;
+        Goblin->y = y;
+        Goblin->icon = 'G';
+        //strcpy(Goblin->name, "Goblin");
+        char* gName = "Goblin";
+        Goblin->name = gName;
+        enemyCount++;
+        enemyList[enemyCount-1] = Goblin;
+    }
+        
+}
+
+void initLevel(FILE* fptr){
     char c;
+    enemyCount =0;
     for (int x = 0; x < HEIGHT; x++) {
         for (int y = 0; y < WIDTH; y++) {
             c = fgetc(fptr);
@@ -117,6 +145,11 @@ void initWorld(FILE* fptr){
                 world[x][y] = 'w';
             if(c == '0')
                 world[x][y] = '.';
+            if(c == 'G'){
+                world[x][y] = 'G';
+                initEnemy('G', x, y);
+            }
+                
         }
     }
     generateCollisionMap(fptr);

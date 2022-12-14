@@ -26,7 +26,7 @@ int main(void) {
     }
 
     // Initialize the game world
-    initWorld(fptr);
+    initLevel(fptr);
     world[playerPosY][playerPosX] = '@';
     
     initColor();
@@ -85,5 +85,6 @@ int main(void) {
 
     // Clean up and exit
     system("cleanup.bat");
+    fclose(fptr);
     return 0;
 }
