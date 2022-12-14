@@ -8,8 +8,8 @@
 int main(void) {
 
     // Set up the game world
-    int playerX = 3;
-    int playerY = 3;
+    int playerPosY = 3;
+    int playerPosX = 3;
 
     player user;
     user.health = 20;
@@ -27,50 +27,50 @@ int main(void) {
 
     // Initialize the game world
     initWorld(fptr);
-    world[playerX][playerY] = '@';
+    world[playerPosY][playerPosX] = '@';
     
     initColor();
 
-    drawMap(playerX, playerY);
+    drawMap(playerPosY, playerPosX);
 
     // Game loop
     while (1) {
         char ch;
 
         if (kbhit()) {
-            world[playerX][playerY] = '.';
+            world[playerPosY][playerPosX] = '.'; //restore last cell
             ch = getch();
 
             if(ch == 'w'){     
-                if (playerX-1 >= 0 && playerX-1 < width && playerY >= 0 && playerY < height && world[playerX-1][playerY] != 'w') {
-                    playerX--;
-                    world[playerX][playerY] = '@';
-                    drawMap(playerX, playerY);
+                if (playerPosY-1 >= 0 && playerPosY-1 < width && playerPosX >= 0 && playerPosX < height && world[playerPosY-1][playerPosX] != 'w') {
+                    playerPosY--;
+                    world[playerPosY][playerPosX] = '@';
+                    drawMap(playerPosY, playerPosX);
                     turn();
                 }  
             }
                 
             if (ch == 'a'){        
-                if (playerX >= 0 && playerX < width && playerY-1 >= 0 && playerY-1 < height && world[playerX][playerY-1] != 'w') {
-                    playerY--;
-                    world[playerX][playerY] = '@';
-                    drawMap(playerX, playerY);
+                if (playerPosY >= 0 && playerPosY < width && playerPosX-1 >= 0 && playerPosX-1 < height && world[playerPosY][playerPosX-1] != 'w') {
+                    playerPosX--;
+                    world[playerPosY][playerPosX] = '@';
+                    drawMap(playerPosY, playerPosX);
                 }  
             }
                 
             if(ch == 's'){
-                if (playerX+1 >= 0 && playerX+1 < width && playerY >= 0 && playerY < height && world[playerX+1][playerY] != 'w'){
-                    playerX++;
-                    world[playerX][playerY] = '@';
-                    drawMap(playerX, playerY);
+                if (playerPosY+1 >= 0 && playerPosY+1 < width && playerPosX >= 0 && playerPosX < height && world[playerPosY+1][playerPosX] != 'w'){
+                    playerPosY++;
+                    world[playerPosY][playerPosX] = '@';
+                    drawMap(playerPosY, playerPosX);
                 }  
             }
             
             if(ch == 'd'){          
-                if (playerX >= 0 && playerX < width && playerY+1 >= 0 && playerY+1 < height && world[playerX][playerY+1] != 'w'){
-                    playerY++;
-                    world[playerX][playerY] = '@';
-                    drawMap(playerX, playerY);
+                if (playerPosY >= 0 && playerPosY < width && playerPosX+1 >= 0 && playerPosX+1 < height && world[playerPosY][playerPosX+1] != 'w'){
+                    playerPosX++;
+                    world[playerPosY][playerPosX] = '@';
+                    drawMap(playerPosY, playerPosX);
             }
                 
             }               

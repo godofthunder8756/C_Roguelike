@@ -8,6 +8,7 @@
 #define height 20
 
 char world[width][height];
+int collisionMap[width][height];
 
 typedef struct player{
     int health;
@@ -81,6 +82,33 @@ void initColor(){
     system("cls");
 }
 
+void generateCollisionFile(){ //debug
+    FILE *collisions;
+    collisions = fopen("collisions.txt","w");
+    for (int i = 0; i < width; i++) {
+        for (int j = 0; j < height; j++) {
+            fprintf(collisions, "%d ", collisionMap[i][j]);
+        }
+        fprintf(collisions, "\n");
+    }
+    fclose(collisions);
+}
+
+void generateCollisionMap(FILE* fptr){
+    char c;
+    rewind(fptr);
+    for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+            c = fgetc(fptr);
+            if(c == 'w')
+                collisionMap[x][y] = 1;
+            if(c == '0')
+                collisionMap[x][y] = 0;
+        }
+    }
+    generateCollisionFile(); //debug
+}
+
 void initWorld(FILE* fptr){
     char c;
     for (int x = 0; x < width; x++) {
@@ -92,4 +120,6 @@ void initWorld(FILE* fptr){
                 world[x][y] = '.';
         }
     }
+    generateCollisionMap(fptr);
 }
+
