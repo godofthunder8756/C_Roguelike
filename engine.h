@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <string.h>
+#include <Windows.h>
 
 #define width 20
 #define height 20
@@ -38,7 +39,8 @@ void turn(){
 }
 
 void drawMap(int playerX, int playerY){
-    system("cls");
+    // system("cls");
+    clearscreen();
     printf("\033[93m                Valdmir!\n");
     printf("\033[96mItems: ");
     //show inventory items
@@ -61,3 +63,14 @@ void drawMap(int playerX, int playerY){
     }
 }
 
+void clearscreen()
+{
+    HANDLE hOut;
+    COORD Position;
+
+    hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    Position.X = 0;
+    Position.Y = 0;
+    SetConsoleCursorPosition(hOut, Position);
+}

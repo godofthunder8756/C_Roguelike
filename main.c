@@ -11,6 +11,8 @@ int main(void) {
     int playerX = 3;
     int playerY = 3;
 
+    system("cls");
+
     //Load Level
     FILE *fptr;
     fptr = fopen("1.lvl","r");
