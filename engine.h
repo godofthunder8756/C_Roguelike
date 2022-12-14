@@ -4,24 +4,17 @@
 #include <string.h>
 #include <Windows.h>
 
-#define width 14
-#define height 20
+#define HEIGHT 14
+#define WIDTH 20
 
-int playerPosY = 3;
-int playerPosX = 3;
-
-char world[width][height];
-int collisionMap[width][height];
+char world[HEIGHT][WIDTH];
+int collisionMap[HEIGHT][WIDTH];
 
 typedef struct player{
     int health;
     int maxhealth;
     int level;
-    int x;
-    int y;
 }player;
-
-player user;
 
 typedef struct item{
     char *name;
@@ -30,8 +23,6 @@ typedef struct item{
     double weight;
 
 }item;
-
-
 
 typedef struct inventory{
     item* contents;
@@ -46,8 +37,6 @@ int turnCount=0;
 //Definitions---------------------------------------------------------------//
 void turn(){
     turnCount++;
-    user.x = playerPosX;
-    user.y = playerPosY;
 }
 
 void clearscreen()
@@ -63,12 +52,9 @@ void clearscreen()
 }
 
 void drawMap(int playerX, int playerY){
-    // system("cls");
     clearscreen();
     printf("\033[93m                Valdmir!\n");
-    printf("\033[96mItems: \n");
-    printf("Coord: %d, %d Turn: %d\n", playerPosX, playerPosY, turnCount); //Debug
-    printf("New Coord: %d, %d", user.x, user.y); //Debug
+    printf("\033[96mItems: ");
     //show inventory items
     for(int i=0; i<playerInventory.size; i++){
         printf((char*)(playerInventory.contents->icon));
@@ -76,8 +62,8 @@ void drawMap(int playerX, int playerY){
     printf("\n");
 
     // Draw the game world
-    for (int x = 0; x < width; x++) {
-        for (int y = 0; y < height; y++) {
+    for (int x = 0; x < HEIGHT; x++) {
+        for (int y = 0; y < WIDTH; y++) {
             if(world[x][y] == '@')                          // Player
                 printf("\033[33m%c ", world[x][y]);
             if(world[x][y] == 'w')                          // Wall
@@ -98,8 +84,8 @@ void initColor(){
 void generateCollisionFile(){ //debug
     FILE *collisions;
     collisions = fopen("collisions.txt","w");
-    for (int i = 0; i < width; i++) {
-        for (int j = 0; j < height; j++) {
+    for (int i = 0; i < HEIGHT; i++) {
+        for (int j = 0; j < WIDTH; j++) {
             fprintf(collisions, "%d ", collisionMap[i][j]);
         }
         fprintf(collisions, "\n");
@@ -110,8 +96,8 @@ void generateCollisionFile(){ //debug
 void generateCollisionMap(FILE* fptr){
     char c;
     rewind(fptr);
-    for (int x = 0; x < width; x++) {
-        for (int y = 0; y < height; y++) {
+    for (int x = 0; x < HEIGHT; x++) {
+        for (int y = 0; y < WIDTH; y++) {
             c = fgetc(fptr);
             if(c == 'w')
                 collisionMap[x][y] = 1;
@@ -124,8 +110,8 @@ void generateCollisionMap(FILE* fptr){
 
 void initWorld(FILE* fptr){
     char c;
-    for (int x = 0; x < width; x++) {
-        for (int y = 0; y < height; y++) {
+    for (int x = 0; x < HEIGHT; x++) {
+        for (int y = 0; y < WIDTH; y++) {
             c = fgetc(fptr);
             if(c == 'w')
                 world[x][y] = 'w';
@@ -135,4 +121,3 @@ void initWorld(FILE* fptr){
     }
     generateCollisionMap(fptr);
 }
-
