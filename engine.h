@@ -4,8 +4,11 @@
 #include <string.h>
 #include <Windows.h>
 
-#define width 20
+#define width 14
 #define height 20
+
+int playerPosY = 3;
+int playerPosX = 3;
 
 char world[width][height];
 int collisionMap[width][height];
@@ -14,7 +17,11 @@ typedef struct player{
     int health;
     int maxhealth;
     int level;
+    int x;
+    int y;
 }player;
+
+player user;
 
 typedef struct item{
     char *name;
@@ -23,6 +30,8 @@ typedef struct item{
     double weight;
 
 }item;
+
+
 
 typedef struct inventory{
     item* contents;
@@ -37,6 +46,8 @@ int turnCount=0;
 //Definitions---------------------------------------------------------------//
 void turn(){
     turnCount++;
+    user.x = playerPosX;
+    user.y = playerPosY;
 }
 
 void clearscreen()
@@ -55,7 +66,9 @@ void drawMap(int playerX, int playerY){
     // system("cls");
     clearscreen();
     printf("\033[93m                Valdmir!\n");
-    printf("\033[96mItems: ");
+    printf("\033[96mItems: \n");
+    printf("Coord: %d, %d Turn: %d\n", playerPosX, playerPosY, turnCount); //Debug
+    printf("New Coord: %d, %d", user.x, user.y); //Debug
     //show inventory items
     for(int i=0; i<playerInventory.size; i++){
         printf((char*)(playerInventory.contents->icon));
