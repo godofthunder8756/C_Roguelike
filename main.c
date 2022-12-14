@@ -79,6 +79,8 @@ int main(void) {
 
 
         // Check for end conditions and break out of the game loop if necessary
+        if(user.health == 0)
+            exit(1);
     }
 
     // Clean up and exit
