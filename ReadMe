@@ -1,1 +1,5 @@
 A small roguelike template written in C using only the standard libraries. Just done as a small fun challange.
+
+Just run "a.exe". 
+
+To compile: "gcc main.c".
