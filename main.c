@@ -42,7 +42,7 @@ int main(void) {
             ch = getch();
 
             if(ch == 'w'){     
-                if (playerPosY-1 >= 0 && playerPosY-1 < width && playerPosX >= 0 && playerPosX < height && world[playerPosY-1][playerPosX] != 'w') {
+                if (playerPosY-1 >= 0 && playerPosY-1 < width && playerPosX >= 0 && playerPosX < height && collisionMap[playerPosY-1][playerPosX] != 1) {
                     playerPosY--;
                     world[playerPosY][playerPosX] = '@';
                     drawMap(playerPosY, playerPosX);
@@ -51,7 +51,7 @@ int main(void) {
             }
                 
             if (ch == 'a'){        
-                if (playerPosY >= 0 && playerPosY < width && playerPosX-1 >= 0 && playerPosX-1 < height && world[playerPosY][playerPosX-1] != 'w') {
+                if (playerPosY >= 0 && playerPosY < width && playerPosX-1 >= 0 && playerPosX-1 < height && collisionMap[playerPosY][playerPosX-1] != 1) {
                     playerPosX--;
                     world[playerPosY][playerPosX] = '@';
                     drawMap(playerPosY, playerPosX);
@@ -59,7 +59,7 @@ int main(void) {
             }
                 
             if(ch == 's'){
-                if (playerPosY+1 >= 0 && playerPosY+1 < width && playerPosX >= 0 && playerPosX < height && world[playerPosY+1][playerPosX] != 'w'){
+                if (playerPosY+1 >= 0 && playerPosY+1 < width && playerPosX >= 0 && playerPosX < height && collisionMap[playerPosY+1][playerPosX] != 1){
                     playerPosY++;
                     world[playerPosY][playerPosX] = '@';
                     drawMap(playerPosY, playerPosX);
@@ -67,7 +67,7 @@ int main(void) {
             }
             
             if(ch == 'd'){          
-                if (playerPosY >= 0 && playerPosY < width && playerPosX+1 >= 0 && playerPosX+1 < height && world[playerPosY][playerPosX+1] != 'w'){
+                if (playerPosY >= 0 && playerPosY < width && playerPosX+1 >= 0 && playerPosX+1 < height && collisionMap[playerPosY][playerPosX+1] != 1){
                     playerPosX++;
                     world[playerPosY][playerPosX] = '@';
                     drawMap(playerPosY, playerPosX);
