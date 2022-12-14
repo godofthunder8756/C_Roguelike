@@ -11,7 +11,10 @@ int main(void) {
     int playerX = 3;
     int playerY = 3;
 
-    system("cls");
+    player user;
+    user.health = 20;
+    user.maxhealth = 20;
+    user.level = 1;
 
     //Load Level
     FILE *fptr;
@@ -23,19 +26,10 @@ int main(void) {
     }
 
     // Initialize the game world
-    char c;
-    for (int x = 0; x < width; x++) {
-        for (int y = 0; y < height; y++) {
-            c = fgetc(fptr);
-            if(c == 'w')
-                world[x][y] = 'w';
-            if(c == '0')
-                world[x][y] = '.';
-        }
-    }
+    initWorld(fptr);
     world[playerX][playerY] = '@';
-    //Sets up Color
-    system("setup.bat");
+    
+    initColor();
 
     drawMap(playerX, playerY);
 

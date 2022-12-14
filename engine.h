@@ -74,3 +74,22 @@ void clearscreen()
     Position.Y = 0;
     SetConsoleCursorPosition(hOut, Position);
 }
+
+void initColor(){
+    //Sets up Color
+    system("setup.bat");
+    system("cls");
+}
+
+void initWorld(FILE* fptr){
+    char c;
+    for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+            c = fgetc(fptr);
+            if(c == 'w')
+                world[x][y] = 'w';
+            if(c == '0')
+                world[x][y] = '.';
+        }
+    }
+}
