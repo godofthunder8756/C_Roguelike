@@ -1,29 +1,18 @@
-//#include "engine.h"
+#ifndef ENEMY_H
+#define ENEMY_H
+
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef struct enemy{
+typedef struct enemy {
     int health;
     char icon;
     char* name;
     int x;
     int y;
-}enemy;
+} enemy;
 
-int followPlayer(int* collisionMap, int enemyX, int enemyY, int playerPosX, int playerPosY){
-    int c;
+// Function declaration only - implementation will be in enemy.c
+int followPlayer(int* collisionMap, int enemyX, int enemyY, int playerPosX, int playerPosY);
 
-}
-/*
-int moveRandom(int* collisionMap, int enemyX, int enemyY, int playerPosX, int playerPosY){
-    int direction = rand()%4;
-    if(direction == 0)
-        int f;
-    if(direction == 1)
-        int k;
-    if(direction == 2)
-        int r;
-    if(direction == 3)
-        int c;
-}
-*/
+#endif /* ENEMY_H */
